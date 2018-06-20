@@ -1,19 +1,23 @@
 package com.orion.domain;
 
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 
 import java.io.Serializable;
 
 @RedisHash("movie")
 public class Movie implements Serializable {
 
+    @Id
     private Long id;
 
     private String name;
 
     private Integer rate;
 
+    @Indexed
     private Integer year;
 
     public Long getId() {

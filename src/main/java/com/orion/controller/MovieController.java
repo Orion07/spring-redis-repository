@@ -4,6 +4,8 @@ import com.orion.domain.Movie;
 import com.orion.service.MovieService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class MovieController {
 
@@ -13,11 +15,18 @@ public class MovieController {
         this.movieService = movieService;
     }
 
+    @PostMapping(value = "/movie")
+    public Movie update(@RequestBody Movie movie) {
+        Movie movieObj = movieService.findById(movie.getId()).get();
+        movieObj.setName(movie.getName());
+        movieObj.setRate(movie.getRate());
+        movieObj.setYear(movie.getYear());
+        return movieService.save(movieObj);
+    }
+
     @PutMapping(value = "/movie")
-    public String save(@RequestBody Movie movie) {
-        Movie savedMovie = movieService.save(movie);
-        System.out.println(savedMovie);
-        return savedMovie.getId() != null ? "OK" : "Not saved";
+    public Movie save(@RequestBody Movie movie) {
+        return movieService.save(movie);
     }
 
     @GetMapping(value = "/movie/{movieId}")
@@ -28,6 +37,11 @@ public class MovieController {
     @GetMapping(value = "/movies")
     public Iterable<Movie> getMovie() {
         return movieService.findAll();
+    }
+
+    @GetMapping(value = "/movie/year/{movieYear}")
+    public List<Movie> getMoviesByRate(@PathVariable("movieYear") Integer movieYear) {
+        return movieService.getMoviesByYear(movieYear);
     }
 
 }

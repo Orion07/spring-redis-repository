@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MovieRepository extends CrudRepository<Movie, Long> {
 
-    List<Movie> findByRateGreaterThan(Integer rate);
+    List<Movie> findByYear(Integer year);
 }

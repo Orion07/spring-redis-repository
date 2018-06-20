@@ -28,7 +28,7 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public List<Movie> getMovieByRateGreaterThan(Integer rate) {
-        return movieRepository.findByRateGreaterThan(rate);
+    public List<Movie> getMoviesByYear(Integer year) {
+        return movieRepository.findByYear(year);
     }
 }
